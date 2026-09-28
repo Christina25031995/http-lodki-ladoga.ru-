@@ -87,6 +87,14 @@
   .field input[aria-invalid="true"] { border-color: var(--boat); }
   .field .err { display: none; font-size: 13px; color: var(--boat); margin-top: 4px; }
   .field input[aria-invalid="true"] + .err { display: block; }
+  .consent { margin: 4px 0 18px; }
+  .consent__label { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; color: var(--slate); cursor: pointer; }
+  .consent__label input { flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--pine); cursor: pointer; }
+  .consent__label a { color: var(--pine); text-underline-offset: 2px; }
+  .consent .err { display: none; font-size: 13px; color: var(--boat); margin: 6px 0 0 30px; }
+  .consent.invalid .err { display: block; }
+  .consent.invalid .consent__label input { outline: 2px solid var(--boat); outline-offset: 1px; }
+  .btn-main[aria-disabled="true"] { opacity: .55; }
   .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 420px) { .f2 { grid-template-columns: 1fr; gap: 0; } .w-head, .w-body { padding-left: 18px; padding-right: 18px; } .w-steps { padding: 0 18px; } }
 
@@ -217,14 +225,22 @@
       </div>
       <div class="field">
         <label for="f-comment">Комментарий</label>
-        <input id="f-comment" name="comment" type="text" placeholder="Спиннинги, маршрут до Орешка…">
+        <input id="f-comment" name="comment" type="text" placeholder="Нужны снасти, маршрут до Орешка…">
+      </div>
+
+      <div class="consent">
+        <label class="consent__label">
+          <input type="checkbox" id="f-consent" name="consent" required aria-describedby="consent-err">
+          <span>Я даю согласие на&nbsp;обработку персональных данных и&nbsp;принимаю <a href="politika.html" target="_blank" rel="noopener">Политику обработки персональных данных</a></span>
+        </label>
+        <div class="err" id="consent-err" role="alert">Отметьте согласие, чтобы отправить заявку</div>
       </div>
 
       <div class="btn-row">
         <button type="button" class="btn-main btn-back" data-go="2" aria-label="Назад">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10H5M8 13l-3-3 3-3"/></svg>
         </button>
-        <button type="submit" class="btn-main btn-wa" style="flex:1">
+        <button type="submit" class="btn-main btn-wa" id="submit-btn" aria-disabled="true" style="flex:1">
           Отправить заявку в WhatsApp
         </button>
       </div>
@@ -355,6 +371,13 @@
     return lines.join('\n');
   }
 
+  var consent = $('f-consent'), consentBox = consent.closest('.consent');
+  consent.addEventListener('change', function () {
+    $('submit-btn').setAttribute('aria-disabled', String(!consent.checked));
+    if (consent.checked) consentBox.classList.remove('invalid');
+    reportHeight();
+  });
+
   $('sc3').addEventListener('submit', function (e) {
     e.preventDefault();
     var name = $('f-name'), phone = $('f-phone');
@@ -364,6 +387,7 @@
     phone.setAttribute('aria-invalid', String(!okPhone));
     if (!okName) { name.focus(); reportHeight(); return; }
     if (!okPhone) { phone.focus(); reportHeight(); return; }
+    if (!consent.checked) { consentBox.classList.add('invalid'); consent.focus(); reportHeight(); return; }
 
     var text = buildMessage(name.value.trim(), phone.value.trim(), $('f-comment').value.trim());
     var url = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text);
