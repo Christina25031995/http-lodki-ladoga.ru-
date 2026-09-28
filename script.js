@@ -27,16 +27,6 @@
       a.href = "https://wa.me/" + CFG.whatsapp;
     });
   }
-
-  /* Operator details for 152-FZ (politika.html, footer): edited in config.js */
-  var OP = CFG.operator || {};
-  document.querySelectorAll("[data-op]").forEach(function (el) {
-    var key = el.getAttribute("data-op");
-    var val = key === "policyDate" ? CFG.policyDate : OP[key];
-    if (!val) return;
-    el.textContent = val;
-    if (key === "email" && el.tagName === "A" && val.indexOf("@") > 0) el.href = "mailto:" + val;
-  });
   document.querySelectorAll('[data-contact="telegram"]').forEach(function (a) {
     if (CFG.telegramUrl) a.href = CFG.telegramUrl;
     else if ("telegramUrl" in CFG) {
@@ -46,9 +36,8 @@
   });
 
   /* Header state */
-  var solidHeader = header && header.classList.contains("site-header--solid");
   function onScroll() {
-    if (header && !solidHeader) header.classList.toggle("is-scrolled", window.scrollY > 40);
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 40);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
