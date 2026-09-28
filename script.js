@@ -22,11 +22,6 @@
       if (CFG.phoneDisplay) a.textContent = CFG.phoneDisplay;
     });
   }
-  if (CFG.whatsapp) {
-    document.querySelectorAll('[data-contact="whatsapp"]').forEach(function (a) {
-      a.href = "https://wa.me/" + CFG.whatsapp;
-    });
-  }
   document.querySelectorAll('[data-contact="telegram"]').forEach(function (a) {
     if (CFG.telegramUrl) a.href = CFG.telegramUrl;
     else if ("telegramUrl" in CFG) {

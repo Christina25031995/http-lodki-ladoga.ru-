@@ -429,3 +429,17 @@ button { font: inherit; cursor: pointer; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* Boat check: photo background section */
+.check { position: relative; overflow: hidden; color: #fff; min-height: 70svh; display: flex; align-items: center; background: #0c1519; }
+.check__bg, .check__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.check::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(12,21,25,0.86) 0%, rgba(12,21,25,0.6) 55%, rgba(12,21,25,0.35) 100%); }
+.check__body { position: relative; z-index: 2; }
+.check__body > * { max-width: 40rem; }
+.check h2 { color: #fff; text-wrap: balance; }
+.check .eyebrow { color: rgba(255,255,255,0.6); }
+.check__lead { margin-top: 1rem; color: rgba(255,255,255,0.8); text-wrap: pretty; }
+.check__list { list-style: none; padding: 0; margin-top: 2rem; display: grid; gap: 0.75rem; }
+.check__list li { display: flex; gap: 0.625rem; align-items: baseline; font-weight: 500; color: rgba(255,255,255,0.9); }
+.check__list li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: #7bb89a; transform: translateY(-1px); }
+@media (max-width: 640px) { .check::before { background: linear-gradient(180deg, rgba(12,21,25,0.72) 0%, rgba(12,21,25,0.5) 100%); } .check__bg img { object-position: 70% 50%; } }
