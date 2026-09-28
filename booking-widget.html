@@ -2,212 +2,365 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Бронирование — Лодки на Ладоге</title>
-<meta name="robots" content="noindex">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script src="config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-  @font-face { font-family: "Source Serif 4"; src: url("fonts/source-serif-4-cyrillic-wght-normal.woff2") format("woff2-variations"); font-weight: 200 900; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-  @font-face { font-family: "Source Serif 4"; src: url("fonts/source-serif-4-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 200 900; font-display: swap; unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212; }
-  @font-face { font-family: "Manrope"; src: url("fonts/manrope-cyrillic-wght-normal.woff2") format("woff2-variations"); font-weight: 200 800; font-display: swap; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-  @font-face { font-family: "Manrope"; src: url("fonts/manrope-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 200 800; font-display: swap; unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122, U+2212; }
-
   :root {
-    --ink: #12181c; --ink-soft: #1a2328; --slate: #56646b; --stone: #8a8577;
-    --linen: #faf9f7; --pebble: #f0ede8; --border: rgba(0,0,0,0.12);
-    --pine: #3a5248; --pine-deep: #2d4239; --pine-muted: #eef3f0; --boat: #c6463a; --tg: #2a8fcf;
-    --serif: "Source Serif 4", Georgia, serif;
-    --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ink:       #12181c;
+    --ink-soft:  #1a2328;
+    --slate:     #5c6b72;
+    --stone:     #a8a498;
+    --linen:     #faf9f7;
+    --pebble:    #f0ede8;
+    --border:    rgba(0,0,0,0.1);
+    --pine:      #3a5248;
+    --pine-deep: #2d4239;
+    --pine-muted:#f0f5f2;
+    --boat:      #c6463a;
+    --font-serif: "Newsreader", Georgia, serif;
+    --font-ui:   "DM Sans", system-ui, sans-serif;
     --ease: cubic-bezier(0.22,1,0.36,1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--sans); font-size: 16px; color: var(--ink); background: var(--pebble); padding: 48px 16px 80px; display: flex; justify-content: center; }
-  body.embedded { padding: 48px 40px; display: block; }
-  @media (max-width: 480px) { body.embedded { padding: 20px 12px; } }
-  button { font: inherit; cursor: pointer; }
-  :focus-visible { outline: 2px solid var(--boat); outline-offset: 2px; }
+  body {
+    font-family: var(--font-ui);
+    background: var(--pebble);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 16px 80px;
+  }
 
-  .w { width: 100%; max-width: 560px; margin: 0 auto; background: var(--linen); border-radius: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 12px 48px rgba(0,0,0,0.14); overflow: hidden; }
-  body.embedded .w { max-width: 520px; }
+  /* ── Widget shell ── */
+  .w {
+    width: 100%;
+    max-width: 520px;
+    background: var(--linen);
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 12px 48px rgba(0,0,0,0.14);
+    overflow: hidden;
+  }
 
-  .w-head { background: var(--ink); padding: 28px 32px 22px; color: var(--linen); position: relative; overflow: hidden; }
-  .w-head::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(58,82,72,0.35) 0%, transparent 60%); pointer-events: none; }
-  .w-head > * { position: relative; z-index: 1; }
-  .w-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .w-logo-mark { width: 26px; height: 26px; background: var(--pine); border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+  /* ── Header ── */
+  .w-head {
+    background: var(--ink);
+    padding: 28px 32px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .w-head::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(58,82,72,0.35) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .w-logo {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px; position: relative; z-index: 1;
+  }
+  .w-logo-mark {
+    width: 26px; height: 26px;
+    background: var(--pine);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+  }
   .w-logo-mark svg { width: 14px; height: 14px; }
-  .w-logo-text { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,249,247,0.7); }
-  .w-head h2 { font-family: var(--serif); font-size: 26px; font-weight: 450; line-height: 1.2; margin-bottom: 6px; }
-  .w-head p { font-size: 14px; color: rgba(250,249,247,0.7); }
+  .w-logo-text {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(250,249,247,0.7);
+  }
+  .w-head h2 {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--linen);
+    line-height: 1.25;
+    margin-bottom: 6px;
+    position: relative; z-index: 1;
+  }
+  .w-head p {
+    font-size: 13px; color: rgba(250,249,247,0.45);
+    position: relative; z-index: 1;
+  }
 
-  .w-steps { display: flex; background: var(--ink-soft); padding: 0 28px; border-top: 1px solid rgba(255,255,255,0.08); }
-  .w-step { flex: 1; text-align: center; padding: 12px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(250,249,247,0.45); border-bottom: 2px solid transparent; }
+  /* ── Step bar ── */
+  .w-steps {
+    display: flex;
+    background: var(--ink-soft);
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .w-step {
+    flex: 1; text-align: center; padding: 11px 0;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase;
+    color: rgba(250,249,247,0.28);
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s var(--ease);
+  }
   .w-step.active { color: #7bb89a; border-bottom-color: #7bb89a; }
-  .w-step.done { color: rgba(250,249,247,0.7); }
+  .w-step.done   { color: rgba(250,249,247,0.45); }
 
-  .w-body { padding: 24px 28px 28px; }
-  .lbl { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-bottom: 10px; }
+  /* ── Body ── */
+  .w-body { padding: 28px 32px; }
 
-  .boats { display: grid; gap: 8px; margin-bottom: 24px; }
-  .boat-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 12px 16px; text-align: left; background: #fff; border: 1px solid var(--border); border-radius: 10px; transition: border-color .18s, background .18s; }
-  .boat-card:hover, .boat-card.sel { border-color: var(--pine); background: var(--pine-muted); }
-  .boat-card__name { font-family: var(--serif); font-size: 18px; font-weight: 500; }
-  .boat-card__sub { font-size: 13px; color: var(--slate); }
+  /* ── Label ── */
+  .lbl {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 12px;
+  }
+
+  /* ── Boat cards ── */
+  .boats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .boat-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff;
+  }
+  .boat-card:hover { border-color: var(--pine); background: var(--pine-muted); }
+  .boat-card.sel  { border-color: var(--pine); background: var(--pine-muted); }
+  .boat-card__name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 3px; font-family: var(--font-serif); }
+  .boat-card__sub  { font-size: 12px; color: var(--slate); }
   .boat-card__right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-  .boat-card__price { font-size: 15px; font-weight: 700; color: var(--pine); white-space: nowrap; }
-  .radio { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #bbb; display: flex; align-items: center; justify-content: center; }
+  .boat-card__price { font-size: 15px; font-weight: 600; color: var(--pine); }
+  .radio {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1.5px solid #ccc;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s;
+  }
   .boat-card.sel .radio { border-color: var(--pine); background: var(--pine); }
-  .boat-card.sel .radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+  .boat-card.sel .radio::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #fff; display: block; }
 
-  .days-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-  .day-btn { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--border); background: #fff; font-size: 20px; color: var(--ink); display: flex; align-items: center; justify-content: center; }
+  /* ── Days ── */
+  .days-row { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .day-btn {
+    width: 38px; height: 38px; border-radius: 8px;
+    border: 1px solid var(--border); background: #fff;
+    font-size: 18px; cursor: pointer; color: var(--slate);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
   .day-btn:hover { background: var(--pebble); }
-  .days-val { font-family: var(--serif); font-size: 22px; min-width: 72px; text-align: center; }
-  .days-price { font-size: 15px; color: var(--slate); }
-  .days-price strong { color: var(--pine); }
+  .days-val { font-family: var(--font-serif); font-size: 22px; color: var(--ink); min-width: 62px; text-align: center; }
+  .days-price { font-size: 13px; color: var(--slate); }
+  .days-price strong { color: var(--pine); font-weight: 600; }
 
-  .cal { margin-bottom: 20px; }
-  .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .cal-nav button { width: 44px; height: 44px; background: none; border: 0; border-radius: 8px; font-size: 22px; color: var(--slate); }
+  /* ── Calendar ── */
+  .cal { margin-bottom: 24px; }
+  .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .cal-nav button { background: none; border: none; padding: 6px 10px; cursor: pointer; color: var(--slate); font-size: 18px; border-radius: 6px; }
   .cal-nav button:hover { background: var(--pebble); }
-  .cal-nav button:disabled { opacity: .3; cursor: default; }
-  .cal-month { font-family: var(--serif); font-size: 18px; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-  .cal-dn { text-align: center; font-size: 12px; font-weight: 700; color: var(--stone); padding: 4px 0 8px; }
-  .cal-d { min-height: 44px; display: flex; align-items: center; justify-content: center; font-size: 15px; background: none; border: 0; border-radius: 8px; color: var(--ink); }
-  .cal-d:hover:not(:disabled) { background: var(--pine-muted); color: var(--pine); }
-  .cal-d:disabled { color: #c4c4c4; cursor: default; }
-  .cal-d.today { box-shadow: inset 0 0 0 1px var(--border); }
-  .cal-d.sel { background: var(--pine); color: #fff; font-weight: 700; }
+  .cal-month { font-family: var(--font-serif); font-size: 16px; color: var(--ink); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+  .cal-dn { text-align: center; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: var(--stone); padding: 4px 0 10px; }
+  .cal-d {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--ink); border-radius: 7px; cursor: pointer;
+    transition: all 0.14s;
+  }
+  .cal-d:hover { background: var(--pine-muted); color: var(--pine); }
+  .cal-d.empty { cursor: default; }
+  .cal-d.na { color: #ccc; cursor: not-allowed; }
+  .cal-d.na:hover { background: none; color: #ccc; }
+  .cal-d.sel { background: var(--pine); color: #fff; font-weight: 600; }
+  .cal-d.sel:hover { background: var(--pine-deep); color: #fff; }
 
-  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-  .slot { min-height: 48px; border: 1px solid var(--border); border-radius: 8px; background: #fff; font-size: 16px; font-weight: 600; color: var(--ink); }
+  /* ── Time slots ── */
+  .slots { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-bottom: 24px; }
+  .slot {
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 6px;
+    text-align: center; cursor: pointer; background: #fff;
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    transition: all 0.14s;
+  }
   .slot:hover { border-color: var(--pine); background: var(--pine-muted); }
   .slot.sel { background: var(--pine); border-color: var(--pine); color: #fff; }
-  .hint { font-size: 13px; color: var(--slate); margin-bottom: 20px; line-height: 1.5; }
+  .slot.busy { color: #ccc; border-color: #eee; cursor: not-allowed; text-decoration: line-through; }
+  .slot.busy:hover { background: #fff; border-color: #eee; }
+  .slot small { display: block; font-size: 10px; margin-top: 2px; opacity: 0.6; }
 
+  /* ── Form ── */
   .field { margin-bottom: 14px; }
-  .field__label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--slate); margin-bottom: 6px; }
-  .field__box { min-height: 48px; padding: 12px 14px; border: 1px dashed rgba(0,0,0,.16); border-radius: 8px; font-size: 16px; line-height: 22px; color: #9aa3a7; background: rgba(255,255,255,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .preview { pointer-events: none; user-select: none; -webkit-user-select: none; }
-  .preview-note { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.45; color: var(--slate); margin: 0 0 18px; }
-  .preview-note::before { content: "i"; flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: var(--pine-muted); color: var(--pine); font: 700 12px/18px var(--serif); text-align: center; }
-  .alt-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+  .field label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.05em; color: var(--slate); margin-bottom: 5px; text-transform: uppercase; }
+  .field input {
+    width: 100%; padding: 11px 14px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 15px; font-family: var(--font-ui); color: var(--ink); background: #fff; outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus { border-color: var(--pine); }
+  .field input::placeholder { color: #c8c4bc; }
   .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 420px) { .f2 { grid-template-columns: 1fr; gap: 0; } .w-head, .w-body { padding-left: 18px; padding-right: 18px; } .w-steps { padding: 0 18px; } }
 
+  /* ── Summary ── */
   .summary { background: var(--pebble); border-radius: 10px; padding: 16px; margin-bottom: 20px; }
-  .sum-row { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; color: var(--slate); margin-bottom: 6px; }
-  .sum-row strong { color: var(--ink); font-weight: 600; text-align: right; }
-  .sum-total { border-top: 1px solid rgba(0,0,0,.08); padding-top: 10px; margin: 8px 0 0; color: var(--ink); font-weight: 700; align-items: baseline; }
-  .sum-total strong { font-family: var(--serif); font-size: 22px; color: var(--pine); }
+  .sum-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--slate); margin-bottom: 7px; }
+  .sum-row:last-child { margin-bottom: 0; }
+  .sum-row strong { color: var(--ink); font-weight: 500; }
+  .sum-total { border-top: 1px solid rgba(0,0,0,0.08); padding-top: 10px; margin-top: 5px; font-size: 14px; color: var(--ink); font-weight: 600; }
+  .sum-total strong { font-family: var(--font-serif); font-size: 20px; color: var(--pine); }
 
-  .btn-main { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; padding: 14px; background: var(--pine); color: #fff; border: 0; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background .18s; }
+  /* ── Buttons ── */
+  .btn-main {
+    width: 100%; background: var(--pine); color: #fff;
+    border: none; border-radius: 8px; padding: 15px;
+    font-size: 15px; font-weight: 500; font-family: var(--font-ui);
+    cursor: pointer; letter-spacing: 0.02em;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background 0.18s, transform 0.1s;
+  }
   .btn-main:hover { background: var(--pine-deep); }
-  .btn-tg { background: var(--tg); }
-  .btn-tg:hover { background: #2379b0; }
-  .copied { font-size: 13px; text-align: center; color: var(--pine); margin: 8px 0 0; min-height: 1em; }
-  .btn-back { flex: 0 0 52px; width: 52px; background: var(--pebble); color: var(--slate); }
+  .btn-main:active { transform: scale(0.98); }
+  .btn-back {
+    background: var(--pebble); color: var(--slate);
+    width: 46px; flex: 0 0 46px; padding: 0;
+  }
   .btn-back:hover { background: #e5e1da; }
-  .btn-ghost { background: transparent; color: var(--pine); border: 1px solid var(--border); }
-  .btn-ghost:hover { background: var(--pine-muted); }
   .btn-row { display: flex; gap: 10px; }
-  .note { text-align: center; font-size: 13px; color: var(--slate); margin-top: 12px; line-height: 1.55; }
+  .note { text-align: center; font-size: 11px; color: var(--stone); margin-top: 12px; line-height: 1.6; }
 
+  /* ── Progress dots ── */
+  .prog { display: flex; justify-content: center; gap: 5px; margin-bottom: 22px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: #ddd; transition: all 0.22s var(--ease); }
+  .dot.a { background: var(--pine); width: 16px; border-radius: 2.5px; }
+  .dot.d { background: #7bb89a; }
+
+  /* ── Screen toggle ── */
   .screen { display: none; }
   .screen.on { display: block; }
 
-  .confirm { text-align: center; padding: 8px 0 4px; }
-  .confirm-icon { width: 64px; height: 64px; border-radius: 50%; background: #e3f2e9; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; }
-  .confirm h3 { font-family: var(--serif); font-size: 26px; font-weight: 450; margin-bottom: 10px; }
-  .confirm > p { font-size: 15px; color: var(--slate); line-height: 1.6; margin-bottom: 20px; }
-  .confirm .btn-main + .btn-main { margin-top: 10px; }
+  /* ── Confirm screen ── */
+  .confirm { padding: 56px 32px; text-align: center; }
+  .confirm-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--pine-muted); margin: 0 auto 24px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .confirm h2 { font-family: var(--font-serif); font-size: 26px; font-weight: 400; color: var(--ink); margin-bottom: 10px; }
+  .confirm p { font-size: 14px; color: var(--slate); line-height: 1.65; margin-bottom: 28px; }
+  .confirm-info { background: var(--pebble); border-radius: 10px; padding: 16px; text-align: left; margin-bottom: 20px; }
+  .confirm-info .lbl { margin-bottom: 4px; }
+  .confirm-info .val { font-family: var(--font-serif); font-size: 20px; color: var(--ink); }
+  .btn-tg {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--pine); color: #fff; text-decoration: none;
+    border-radius: 8px; padding: 15px; font-size: 15px; font-weight: 500;
+  }
+  .btn-tg:hover { background: var(--pine-deep); }
 </style>
 </head>
 <body>
 <div class="w">
+
+  <!-- Header -->
   <div class="w-head">
     <div class="w-logo">
-      <div class="w-logo-mark"><svg viewBox="0 0 14 14" fill="none" stroke="#faf9f7" stroke-width="1.5" aria-hidden="true"><path d="M2 10c1-3 3-5 5-5s4 2 5 5"/><path d="M1 10h12"/></svg></div>
+      <div class="w-logo-mark">
+        <svg viewBox="0 0 14 14" fill="none" stroke="#faf9f7" stroke-width="1.5"><path d="M2 10c1-3 3-5 5-5s4 2 5 5"/><path d="M1 10h12"/></svg>
+      </div>
       <span class="w-logo-text">Лодки на Ладоге</span>
     </div>
     <h2>Онлайн‑бронирование</h2>
-    <p>Подтвердим в течение 15 минут · без предоплаты · без залога</p>
+    <p>Подтверждение за 2 минуты · без предоплаты · без залога</p>
   </div>
 
-  <div class="w-steps" aria-hidden="true">
+  <!-- Steps -->
+  <div class="w-steps">
     <div class="w-step active" id="s1">Лодка</div>
     <div class="w-step" id="s2">Дата</div>
-    <div class="w-step" id="s3">Заявка</div>
+    <div class="w-step" id="s3">Контакты</div>
   </div>
 
+  <!-- Body -->
   <div class="w-body">
+
     <!-- Screen 1 -->
     <div class="screen on" id="sc1">
-      <div class="lbl" id="boat-lbl">Выберите лодку</div>
-      <div class="boats" role="radiogroup" aria-labelledby="boat-lbl">
-        <button type="button" class="boat-card sel" role="radio" aria-checked="true" data-boat="Лодка №1">
-          <span><span class="boat-card__name">Лодка №1</span><br><span class="boat-card__sub">Алюминий · 5 м · 20 л.с. · до 4 чел · эхолот</span></span>
-          <span class="boat-card__right"><span class="boat-card__price">8 500 ₽/день</span><span class="radio"></span></span>
-        </button>
-        <button type="button" class="boat-card" role="radio" aria-checked="false" data-boat="Лодка №2">
-          <span><span class="boat-card__name">Лодка №2</span><br><span class="boat-card__sub">Алюминий · 5 м · 20 л.с. · до 4 чел · эхолот</span></span>
-          <span class="boat-card__right"><span class="boat-card__price">8 500 ₽/день</span><span class="radio"></span></span>
-        </button>
+      <div class="lbl">Выберите лодку</div>
+      <div class="boats">
+        <div class="boat-card sel" onclick="pickBoat(this,'Лодка №1')">
+          <div>
+            <div class="boat-card__name">Лодка №1</div>
+            <div class="boat-card__sub">Алюминий · 5 м · 20 л.с. · до 3 чел · эхолот</div>
+          </div>
+          <div class="boat-card__right">
+            <div class="boat-card__price">8 500 ₽/д</div>
+            <div class="radio"></div>
+          </div>
+        </div>
+        <div class="boat-card" onclick="pickBoat(this,'Лодка №2')">
+          <div>
+            <div class="boat-card__name">Лодка №2</div>
+            <div class="boat-card__sub">Алюминий · 5 м · 20 л.с. · до 4 чел · эхолот</div>
+          </div>
+          <div class="boat-card__right">
+            <div class="boat-card__price">8 500 ₽/д</div>
+            <div class="radio"></div>
+          </div>
+        </div>
       </div>
 
       <div class="lbl">Количество дней</div>
       <div class="days-row">
-        <button type="button" class="day-btn" data-days="-1" aria-label="Меньше дней">−</button>
-        <span class="days-val" id="days-val" aria-live="polite">1 день</span>
-        <button type="button" class="day-btn" data-days="1" aria-label="Больше дней">+</button>
+        <button class="day-btn" onclick="chDays(-1)">−</button>
+        <span class="days-val" id="days-val">1 день</span>
+        <button class="day-btn" onclick="chDays(1)">+</button>
         <span class="days-price">= <strong id="days-price">8 500 ₽</strong></span>
       </div>
 
-      <button type="button" class="btn-main" data-go="2">
+      <button class="btn-main" onclick="go(2)">
         Выбрать дату
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10M12 7l3 3-3 3"/></svg>
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10M12 7l3 3-3 3"/></svg>
       </button>
     </div>
 
     <!-- Screen 2 -->
     <div class="screen" id="sc2">
+      <div class="prog"><div class="dot d"></div><div class="dot a"></div><div class="dot"></div></div>
+
       <div class="lbl">Дата выхода на воду</div>
       <div class="cal">
         <div class="cal-nav">
-          <button type="button" id="cal-prev" aria-label="Предыдущий месяц">&#8249;</button>
-          <span class="cal-month" id="cal-m" aria-live="polite"></span>
-          <button type="button" id="cal-next" aria-label="Следующий месяц">&#8250;</button>
+          <button onclick="chMonth(-1)">&#8249;</button>
+          <span class="cal-month" id="cal-m"></span>
+          <button onclick="chMonth(1)">&#8250;</button>
         </div>
         <div class="cal-grid" id="cal-g"></div>
       </div>
 
       <div class="lbl">Время старта</div>
-      <div class="slots" id="slots">
-        <button type="button" class="slot">06:00</button>
-        <button type="button" class="slot">07:00</button>
-        <button type="button" class="slot sel">08:00</button>
-        <button type="button" class="slot">09:00</button>
-        <button type="button" class="slot">10:00</button>
-        <button type="button" class="slot">11:00</button>
+      <div class="slots">
+        <div class="slot busy">06:00<small>занято</small></div>
+        <div class="slot" onclick="pickSlot(this)">07:00<small>свободно</small></div>
+        <div class="slot sel" onclick="pickSlot(this)">08:00<small>свободно</small></div>
+        <div class="slot" onclick="pickSlot(this)">09:00<small>свободно</small></div>
+        <div class="slot" onclick="pickSlot(this)">10:00<small>свободно</small></div>
+        <div class="slot busy">11:00<small>занято</small></div>
       </div>
-      <p class="hint">Свободна ли лодка на&nbsp;выбранное время, подтвердим в&nbsp;переписке.</p>
 
       <div class="btn-row">
-        <button type="button" class="btn-main btn-back" data-go="1" aria-label="Назад">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10H5M8 13l-3-3 3-3"/></svg>
+        <button class="btn-main btn-back" onclick="go(1)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10H5M8 13l-3-3 3-3"/></svg>
         </button>
-        <button type="button" class="btn-main" data-go="3" style="flex:1">
-          Далее
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10M12 7l3 3-3 3"/></svg>
+        <button class="btn-main" onclick="go(3)" style="flex:1">
+          Ввести контакты
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10M12 7l3 3-3 3"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Screen 3: демо-форма. Поля ниже только картинка: сайт не собирает имя и телефон,
-         их гость пишет сам в переписке. Рабочая форма с согласием лежит в git-теге with-form. -->
+    <!-- Screen 3 -->
     <div class="screen" id="sc3">
+      <div class="prog"><div class="dot d"></div><div class="dot d"></div><div class="dot a"></div></div>
+
       <div class="summary">
         <div class="sum-row"><span>Лодка</span><strong id="sum-boat">Лодка №1</strong></div>
         <div class="sum-row"><span>Дата</span><strong id="sum-date">—</strong></div>
@@ -216,173 +369,132 @@
         <div class="sum-row sum-total"><span>Итого</span><strong id="sum-price">8 500 ₽</strong></div>
       </div>
 
-      <div class="preview" aria-hidden="true">
-        <div class="f2">
-          <div class="field">
-            <div class="field__label">Имя</div>
-            <div class="field__box">Ваше имя</div>
-          </div>
-          <div class="field">
-            <div class="field__label">Телефон</div>
-            <div class="field__box">+7 900 000&#8209;00&#8209;00</div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="field__label">Комментарий</div>
-          <div class="field__box">Нужны снасти, маршрут до&nbsp;Орешка…</div>
-        </div>
+      <div class="f2">
+        <div class="field"><label>Имя</label><input type="text" placeholder="Ваше имя"></div>
+        <div class="field"><label>Телефон</label><input type="tel" placeholder="+7 900 000 00 00"></div>
       </div>
-      <p class="preview-note">Имя и&nbsp;телефон укажете в&nbsp;переписке. Сайт не&nbsp;собирает личные данные.</p>
+      <div class="field"><label>Комментарий</label><input type="text" placeholder="Спиннинги, маршрут до Орешка..."></div>
 
       <div class="btn-row">
-        <button type="button" class="btn-main btn-back" data-go="2" aria-label="Назад">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10H5M8 13l-3-3 3-3"/></svg>
+        <button class="btn-main btn-back" onclick="go(2)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10H5M8 13l-3-3 3-3"/></svg>
         </button>
-        <a class="btn-main btn-tg" id="tg-main" href="https://t.me/+79052182094" target="_blank" rel="noopener" style="flex:1">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5z"/></svg>
-          Написать в Telegram
-        </a>
+        <button class="btn-main" onclick="confirm()" style="flex:1">
+          Забронировать лодку
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l5 5L16 6"/></svg>
+        </button>
       </div>
-      <div class="alt-row">
-        <a class="btn-main btn-ghost" id="tel-link" href="tel:+79052182094" style="flex:1">Позвонить</a>
-              </div>
-      <p class="copied" id="copied" aria-live="polite"></p>
-      <p class="note">Без предоплаты · без залога · подтвердим в&nbsp;течение 15&nbsp;минут</p>
+      <p class="note">Без предоплаты · Без залога · Позвоним для подтверждения</p>
     </div>
+
   </div>
 </div>
 
 <script>
-(function () {
-  var CFG = window.LODKI_CONFIG || {};
-  var PRICE = CFG.pricePerDay || 8500;
-  var MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
-  var MONTHS_G = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-  var WD = ['вс','пн','вт','ср','чт','пт','сб'];
-  var DAYS_LABEL = ['','1 день','2 дня','3 дня','4 дня','5 дней','6 дней','7 дней'];
+const PRICE = 8500;
+const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const MONTHS_G = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const DAYS_LABEL = ['','1 день','2 дня','3 дня','4 дня','5 дней','6 дней','7 дней'];
+const UNAVAIL = [1,2,8,9,15,22,23];
 
-  if (window.self !== window.top) document.body.classList.add('embedded');
+let days = 1, boat = 'Лодка №1', time = '08:00';
+let month = new Date().getMonth(), year = new Date().getFullYear(), selDay = 12;
 
-  var today = new Date(); today.setHours(0,0,0,0);
-  var st = { boat: 'Лодка №1', days: 1, time: '08:00', date: new Date(today), month: today.getMonth(), year: today.getFullYear() };
-  var $ = function (id) { return document.getElementById(id); };
-  var money = function (n) { return n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽'; };
-  var fmtDate = function (d) { return d.getDate() + ' ' + MONTHS_G[d.getMonth()] + ' ' + d.getFullYear() + ' (' + WD[d.getDay()] + ')'; };
-
-  function go(n) {
-    [1,2,3].forEach(function (i) { $('sc' + i).classList.toggle('on', i === n); });
-    [1,2,3].forEach(function (i) {
-      var s = $('s' + i); s.classList.remove('active', 'done');
-      var k = Math.min(n, 3);
-      if (i < k) s.classList.add('done'); else if (i === k) s.classList.add('active');
-    });
-    if (n === 3) { fillSummary(); fillLinks(); }
-    reportHeight();
-  }
-  document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { go(+b.getAttribute('data-go')); }); });
-
-  function pickBoat(name) {
-    st.boat = name;
-    document.querySelectorAll('.boat-card').forEach(function (c) {
-      var on = c.getAttribute('data-boat') === name;
-      c.classList.toggle('sel', on); c.setAttribute('aria-checked', String(on));
-    });
-  }
-  document.querySelectorAll('.boat-card').forEach(function (c) { c.addEventListener('click', function () { pickBoat(c.getAttribute('data-boat')); }); });
-
-  document.querySelectorAll('[data-days]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      st.days = Math.max(1, Math.min(7, st.days + (+b.getAttribute('data-days'))));
-      $('days-val').textContent = DAYS_LABEL[st.days];
-      $('days-price').textContent = money(st.days * PRICE);
-    });
+function go(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('sc'+i).classList.toggle('on', i===n);
+    const s = document.getElementById('s'+i);
+    s.classList.remove('active','done');
+    if (i < n) s.classList.add('done');
+    if (i === n) s.classList.add('active');
   });
+  if (n===3) fillSummary();
+}
 
-  document.querySelectorAll('.slot').forEach(function (s) {
-    s.addEventListener('click', function () {
-      document.querySelectorAll('.slot').forEach(function (x) { x.classList.remove('sel'); });
-      s.classList.add('sel'); st.time = s.textContent.trim();
-    });
+function pickBoat(el, name) {
+  document.querySelectorAll('.boat-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  boat = name;
+}
+
+function chDays(d) {
+  days = Math.max(1, Math.min(7, days+d));
+  document.getElementById('days-val').textContent = DAYS_LABEL[days];
+  document.getElementById('days-price').textContent = (days*PRICE).toLocaleString('ru') + ' ₽';
+}
+
+function pickSlot(el) {
+  if (el.classList.contains('busy')) return;
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+  el.classList.add('sel');
+  time = el.textContent.split('\n')[0].trim();
+}
+
+function renderCal() {
+  document.getElementById('cal-m').textContent = MONTHS[month] + ' ' + year;
+  const g = document.getElementById('cal-g'); g.innerHTML = '';
+  ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(d => {
+    const e = document.createElement('div'); e.className='cal-dn'; e.textContent=d; g.appendChild(e);
   });
-
-  function renderCal() {
-    $('cal-m').textContent = MONTHS[st.month] + ' ' + st.year;
-    $('cal-prev').disabled = (st.year === today.getFullYear() && st.month === today.getMonth());
-    var g = $('cal-g'); g.innerHTML = '';
-    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(function (d) { var e = document.createElement('div'); e.className = 'cal-dn'; e.textContent = d; g.appendChild(e); });
-    var first = new Date(st.year, st.month, 1).getDay();
-    var off = first === 0 ? 6 : first - 1;
-    for (var i = 0; i < off; i++) g.appendChild(document.createElement('div'));
-    var total = new Date(st.year, st.month + 1, 0).getDate();
-    for (var d = 1; d <= total; d++) {
-      var dt = new Date(st.year, st.month, d);
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'cal-d'; b.textContent = d;
-      b.setAttribute('aria-label', fmtDate(dt));
-      if (dt < today) b.disabled = true;
-      if (+dt === +today) b.classList.add('today');
-      if (+dt === +st.date) { b.classList.add('sel'); b.setAttribute('aria-pressed', 'true'); }
-      (function (dt, b) {
-        b.addEventListener('click', function () {
-          st.date = dt;
-          g.querySelectorAll('.cal-d').forEach(function (x) { x.classList.remove('sel'); x.removeAttribute('aria-pressed'); });
-          b.classList.add('sel'); b.setAttribute('aria-pressed', 'true');
-        });
-      })(dt, b);
-      g.appendChild(b);
-    }
-    reportHeight();
+  const first = new Date(year,month,1).getDay();
+  const off = first===0?6:first-1;
+  for (let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-d empty';g.appendChild(e);}
+  const total = new Date(year,month+1,0).getDate();
+  const today = new Date();
+  for (let d=1;d<=total;d++){
+    const e = document.createElement('div'); e.className='cal-d'; e.textContent=d;
+    const past = new Date(year,month,d) < new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    if (past||UNAVAIL.includes(d)) e.classList.add('na');
+    else if (d===selDay) e.classList.add('sel');
+    e.onclick = () => {
+      if (e.classList.contains('na')) return;
+      document.querySelectorAll('.cal-d').forEach(x=>x.classList.remove('sel'));
+      e.classList.add('sel'); selDay=d;
+    };
+    g.appendChild(e);
   }
-  $('cal-prev').addEventListener('click', function () { st.month--; if (st.month < 0) { st.month = 11; st.year--; } renderCal(); });
-  $('cal-next').addEventListener('click', function () { st.month++; if (st.month > 11) { st.month = 0; st.year++; } renderCal(); });
+}
 
-  function fillSummary() {
-    $('sum-boat').textContent = st.boat;
-    $('sum-date').textContent = fmtDate(st.date);
-    $('sum-time').textContent = st.time;
-    $('sum-days').textContent = DAYS_LABEL[st.days];
-    $('sum-price').textContent = money(st.days * PRICE);
-  }
-
-  function buildMessage() {
-    return [
-      'Здравствуйте! Хочу забронировать лодку.',
-      'Лодка: ' + st.boat,
-      'Дата: ' + fmtDate(st.date),
-      'Время старта: ' + st.time,
-      'Дней: ' + DAYS_LABEL[st.days],
-      'Итого: ' + money(st.days * PRICE),
-      '(с сайта lodki-ladoga.ru)'
-    ].join('\n');
-  }
-
-  function fillLinks() {
-    if (CFG.phone) $('tel-link').href = 'tel:' + CFG.phone;
-    if (CFG.telegramUrl) $('tg-main').href = CFG.telegramUrl;
-  }
-
-  $('tg-main').addEventListener('click', function () {
-    var txt = buildMessage();
-    function done() { $('copied').textContent = 'Текст брони скопирован. Вставьте его в\u00a0чат.'; }
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () {});
-      else { var t = document.createElement('textarea'); t.value = txt; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); done(); }
-    } catch (e) {}
-  });
-
-  /* Parent page: preselect a boat */
-  window.addEventListener('message', function (e) {
-    var n = e.data && e.data.selectBoat;
-    if (n === 1 || n === 2) { pickBoat('Лодка №' + n); go(1); }
-  });
-
-  function reportHeight() {
-    if (window.parent !== window) window.parent.postMessage({ iframeHeight: Math.ceil(document.querySelector('.w').getBoundingClientRect().bottom + parseFloat(getComputedStyle(document.body).paddingBottom)) + 2 }, '*');
-  }
+function chMonth(d) {
+  month+=d;
+  if(month>11){month=0;year++;}
+  if(month<0){month=11;year--;}
   renderCal();
-  window.addEventListener('load', reportHeight);
-  window.addEventListener('resize', reportHeight);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reportHeight);
-})();
+}
+
+function fillSummary() {
+  document.getElementById('sum-boat').textContent = boat;
+  document.getElementById('sum-date').textContent = selDay + ' ' + MONTHS_G[month] + ' ' + year;
+  document.getElementById('sum-time').textContent = time;
+  document.getElementById('sum-days').textContent = DAYS_LABEL[days];
+  document.getElementById('sum-price').textContent = (days*PRICE).toLocaleString('ru') + ' ₽';
+}
+
+function confirm() {
+  document.querySelector('.w').innerHTML = `
+    <div class="confirm">
+      <div class="confirm-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#3a5248" stroke-width="1.5"/>
+          <path d="M10 16l4.5 4.5 7.5-7.5" stroke="#3a5248" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>Заявка принята</h2>
+      <p>Мы позвоним и подтвердим бронь<br>в течение 15 минут</p>
+      <div class="confirm-info">
+        <div class="lbl">Что дальше</div>
+        <div style="font-size:14px;color:var(--slate);line-height:1.65;margin-top:6px">Мы возьмём ваши контакты из формы и позвоним для подтверждения даты и времени. Ничего больше делать не нужно.</div>
+      </div>
+    </div>`;
+}
+
+renderCal();
+
+function reportHeight() {
+  window.parent.postMessage({ iframeHeight: document.body.scrollHeight }, '*');
+}
+reportHeight();
+new MutationObserver(reportHeight).observe(document.body, { childList:true, subtree:true });
 </script>
 </body>
 </html>

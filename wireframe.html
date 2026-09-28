@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe — Лодки на Ладоге</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body class="wf-doc">
+  <aside class="wf-meta">
+    <p class="wf-meta__tag">Wireframe · не финальный UI</p>
+    <h1>Главная — иерархия и UX flow</h1>
+    <p>Структура из 9 блоков. Цель flow: за 10–15 секунд показать отличие от обычного проката → сценарий → лодка → бронь.</p>
+    <nav class="wf-meta__links">
+      <a href="index.html">← Финальный лендинг</a>
+    </nav>
+  </aside>
+
+  <!-- UX FLOW -->
+  <section class="wf-flow" aria-labelledby="flow-title">
+    <h2 id="flow-title">UX flow (путь пользователя)</h2>
+
+    <div class="flow-diagram" role="img" aria-label="Схема UX flow главной страницы">
+      <div class="flow-row flow-row--entry">
+        <div class="flow-node flow-node--primary">
+          <span class="flow-num">ENTRY</span>
+          <strong>Hero</strong>
+          <p>Отличие за 5 сек: новые лодки · без залога · всё включено</p>
+        </div>
+      </div>
+
+      <div class="flow-arrows flow-arrows--split">
+        <span class="flow-path flow-path--main">↓ основной путь (80%)</span>
+        <span class="flow-path flow-path--alt">↓ сомневается (20%)</span>
+      </div>
+
+      <div class="flow-row flow-row--2">
+        <div class="flow-node">
+          <span class="flow-num">2</span>
+          <strong>Сценарии</strong>
+          <p>«Это про меня»</p>
+        </div>
+        <div class="flow-node flow-node--alt">
+          <span class="flow-num">4</span>
+          <strong>Включено</strong>
+          <p>skip с Hero CTA «Что входит»</p>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-row flow-row--2">
+        <div class="flow-node">
+          <span class="flow-num">3</span>
+          <strong>Каталог</strong>
+          <p>Выбор лодки · спеки</p>
+        </div>
+        <div class="flow-node flow-node--alt">
+          <span class="flow-num">6</span>
+          <strong>Безопасность</strong>
+          <p>страх «убитой» лодки</p>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-row flow-row--3">
+        <div class="flow-node">
+          <span class="flow-num">5</span>
+          <strong>Аренда</strong>
+          <p>как проходит · без сюрпризов</p>
+        </div>
+        <div class="flow-node flow-node--alt">
+          <span class="flow-num">8</span>
+          <strong>FAQ</strong>
+          <p>снятие возражений</p>
+        </div>
+        <div class="flow-node flow-node--alt">
+          <span class="flow-num">7</span>
+          <strong>Фото</strong>
+          <p>соц. доказательство</p>
+        </div>
+      </div>
+
+      <div class="flow-arrow flow-arrow--bold">↓</div>
+
+      <div class="flow-row flow-row--exit">
+        <div class="flow-node flow-node--goal">
+          <span class="flow-num">GOAL</span>
+          <strong>CTA + контакты</strong>
+          <p>Звонок / Telegram</p>
+        </div>
+        <div class="flow-node flow-node--sticky">
+          <span class="flow-num">M</span>
+          <strong>Sticky CTA</strong>
+          <p>mobile: после Hero → #contact</p>
+        </div>
+      </div>
+    </div>
+
+    <dl class="flow-legend">
+      <div><dt>Primary CTA</dt><dd>Забронировать — повторяется в Hero, каталоге, header, sticky, финале</dd></div>
+      <div><dt>Secondary CTA</dt><dd>«Что входит» — ведёт в блок 4 без агрессии</dd></div>
+      <div><dt>Nav anchor</dt><dd>Сценарии → Лодки → Включено → Аренда → FAQ → контакт</dd></div>
+    </dl>
+  </section>
+
+  <!-- PAGE WIREFRAME -->
+  <section class="wf-page" aria-labelledby="page-title">
+    <h2 id="page-title">Wireframe страницы (hierarchy)</h2>
+    <p class="wf-page__note">Прямоугольники = зоны контента. Числа = порядок секций. Вложенность = иерархия внутри блока.</p>
+
+    <!-- GLOBAL -->
+    <div class="wf-block wf-block--global" data-level="0">
+      <header class="wf-zone wf-zone--header">
+        <span class="wf-label">Header · sticky</span>
+        <div class="wf-inner wf-inner--row">
+          <span class="wf-box wf-box--sm">Logo</span>
+          <span class="wf-box wf-box--nav">Nav ×5</span>
+          <span class="wf-box wf-box--cta">CTA</span>
+          <span class="wf-box wf-box--sm wf-hide-desktop">☰</span>
+        </div>
+      </header>
+
+      <main class="wf-main">
+        <!-- 1 HERO -->
+        <section class="wf-block" data-section="1" data-priority="critical">
+          <div class="wf-block__head">
+            <span class="wf-section-num">1</span>
+            <span class="wf-block__title">Hero</span>
+            <span class="wf-block__goal">Задача: отличие от проката за 5 сек</span>
+          </div>
+          <div class="wf-zone wf-zone--media wf-zone--tall">
+            <span class="wf-label">Media 100% · фото лодка + пирс</span>
+          </div>
+          <div class="wf-zone wf-zone--content">
+            <span class="wf-box wf-box--xs">Eyebrow</span>
+            <span class="wf-box wf-box--h1">H1 · новые лодки · без залога · без доплат</span>
+            <span class="wf-box wf-box--lead">Lead · мотор · эхолот · бензин · пирс · точки</span>
+            <div class="wf-inner wf-inner--row">
+              <span class="wf-box wf-box--pill">Pill ×4</span>
+            </div>
+            <div class="wf-inner wf-inner--row">
+              <span class="wf-box wf-box--cta">Primary CTA</span>
+              <span class="wf-box wf-box--sec">Secondary → #included</span>
+            </div>
+            <div class="wf-inner wf-inner--row wf-inner--stats">
+              <span class="wf-box wf-box--stat">Stat</span>
+              <span class="wf-box wf-box--stat">Stat</span>
+              <span class="wf-box wf-box--stat">Stat</span>
+            </div>
+          </div>
+          <p class="wf-annotation">↓ scroll</p>
+        </section>
+
+        <!-- 2 SCENARIOS -->
+        <section class="wf-block" data-section="2" data-priority="high">
+          <div class="wf-block__head">
+            <span class="wf-section-num">2</span>
+            <span class="wf-block__title">Сценарии аренды</span>
+            <span class="wf-block__goal">Задача: self-segmentation</span>
+          </div>
+          <div class="wf-zone wf-zone--header-block">
+            <span class="wf-box wf-box--xs">Eyebrow</span>
+            <span class="wf-box wf-box--h2">H2</span>
+            <span class="wf-box wf-box--desc">Desc</span>
+          </div>
+          <div class="wf-grid wf-grid--4">
+            <div class="wf-card">
+              <span class="wf-label">Card</span>
+              <span class="wf-box">H3 · Рыбалка</span>
+              <span class="wf-box wf-box--text">Body</span>
+              <span class="wf-box wf-box--tag">Tags ×2</span>
+            </div>
+            <div class="wf-card">
+              <span class="wf-box">H3 · Друзья</span>
+              <span class="wf-box wf-box--text">Body</span>
+              <span class="wf-box wf-box--tag">Tags</span>
+            </div>
+            <div class="wf-card">
+              <span class="wf-box">H3 · Пара</span>
+              <span class="wf-box wf-box--text">Body</span>
+              <span class="wf-box wf-box--tag">Tags</span>
+            </div>
+            <div class="wf-card">
+              <span class="wf-box">H3 · Новичок</span>
+              <span class="wf-box wf-box--text">Body</span>
+              <span class="wf-box wf-box--tag">Tags</span>
+            </div>
+          </div>
+          <p class="wf-annotation wf-annotation--muted">Нет CTA — ведёт к каталогу скроллом</p>
+        </section>
+
+        <!-- 3 FLEET -->
+        <section class="wf-block" data-section="3" data-priority="high">
+          <div class="wf-block__head">
+            <span class="wf-section-num">3</span>
+            <span class="wf-block__title">Каталог лодок</span>
+            <span class="wf-block__goal">Задача: конкретика · 2 лодки · спеки</span>
+          </div>
+          <div class="wf-zone wf-zone--split-head">
+            <div>
+              <span class="wf-box wf-box--h2">H2</span>
+              <span class="wf-box wf-box--desc">Desc</span>
+            </div>
+            <span class="wf-box wf-box--aside">Note · 2 лодки · 2 года</span>
+          </div>
+          <div class="wf-grid wf-grid--2">
+            <div class="wf-card wf-card--boat">
+              <span class="wf-zone wf-zone--media">Image</span>
+              <span class="wf-box">H3 + Badge 2025</span>
+              <span class="wf-box wf-box--spec">Spec list ×4</span>
+              <span class="wf-box wf-box--cta">CTA → contact</span>
+            </div>
+            <div class="wf-card wf-card--boat">
+              <span class="wf-zone wf-zone--media">Image</span>
+              <span class="wf-box">H3 + Badge</span>
+              <span class="wf-box wf-box--spec">Spec list</span>
+              <span class="wf-box wf-box--cta">CTA</span>
+            </div>
+          </div>
+          <span class="wf-box wf-box--contrast">Contrast line · vs старые лодки</span>
+        </section>
+
+        <!-- 4 INCLUDED -->
+        <section class="wf-block wf-block--dark" data-section="4" data-priority="critical">
+          <div class="wf-block__head">
+            <span class="wf-section-num">4</span>
+            <span class="wf-block__title">Что входит</span>
+            <span class="wf-block__goal">Задача: снять страх скрытых доплат</span>
+          </div>
+          <div class="wf-zone wf-zone--header-block">
+            <span class="wf-box wf-box--h2">H2 · без доплат на месте</span>
+            <span class="wf-box wf-box--desc">Desc</span>
+          </div>
+          <div class="wf-grid wf-grid--3">
+            <span class="wf-card wf-card--icon">Icon + H3 + text</span>
+            <span class="wf-card wf-card--icon">Эхолот</span>
+            <span class="wf-card wf-card--icon">Бензин</span>
+            <span class="wf-card wf-card--icon">Жилеты</span>
+            <span class="wf-card wf-card--icon">Точки</span>
+            <span class="wf-card wf-card--icon">Пирс</span>
+            <span class="wf-card wf-card--icon">Без залога</span>
+          </div>
+          <p class="wf-annotation">← Secondary CTA из Hero ведёт сюда</p>
+        </section>
+
+        <!-- 5 PROCESS -->
+        <section class="wf-block" data-section="5" data-priority="medium">
+          <div class="wf-block__head">
+            <span class="wf-section-num">5</span>
+            <span class="wf-block__title">Как проходит аренда</span>
+            <span class="wf-block__goal">Задача: предсказуемость · день в день</span>
+          </div>
+          <div class="wf-zone wf-zone--header-block">
+            <span class="wf-box wf-box--h2">H2</span>
+            <span class="wf-box wf-box--desc">Desc</span>
+          </div>
+          <div class="wf-steps">
+            <span class="wf-step"><em>1</em> Заявка</span>
+            <span class="wf-step"><em>2</em> Выдача</span>
+            <span class="wf-step"><em>3</em> Спуск</span>
+            <span class="wf-step"><em>4</em> На воде</span>
+            <span class="wf-step"><em>5</em> Возврат</span>
+          </div>
+        </section>
+
+        <!-- 6 SAFETY -->
+        <section class="wf-block" data-section="6" data-priority="medium">
+          <div class="wf-block__head">
+            <span class="wf-section-num">6</span>
+            <span class="wf-block__title">Состояние и безопасность</span>
+            <span class="wf-block__goal">Задача: vs боли · протечки · дерево</span>
+          </div>
+          <div class="wf-grid wf-grid--2col">
+            <div class="wf-zone">
+              <span class="wf-box wf-box--h2">H2</span>
+              <span class="wf-box wf-box--desc">Desc</span>
+              <span class="wf-box wf-box--list">Check list ×6</span>
+            </div>
+            <div class="wf-zone">
+              <span class="wf-zone wf-zone--media">Image · алюминий</span>
+              <span class="wf-box wf-box--contrast">Contrast · старый прокат ×5</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 GALLERY -->
+        <section class="wf-block" data-section="7" data-priority="low">
+          <div class="wf-block__head">
+            <span class="wf-section-num">7</span>
+            <span class="wf-block__title">Фото</span>
+            <span class="wf-block__goal">Задача: доверие · реальные кадры</span>
+          </div>
+          <div class="wf-zone wf-zone--header-block">
+            <span class="wf-box wf-box--h2">H2</span>
+          </div>
+          <div class="wf-gallery">
+            <span class="wf-gallery__wide">Wide</span>
+            <span class="wf-gallery__cell">Cell</span>
+            <span class="wf-gallery__cell">Cell</span>
+            <span class="wf-gallery__cell">Cell</span>
+            <span class="wf-gallery__cell">Cell</span>
+            <span class="wf-gallery__cell">Cell</span>
+          </div>
+          <span class="wf-box wf-box--guide">Photo guide · рекомендации</span>
+        </section>
+
+        <!-- 8 FAQ -->
+        <section class="wf-block" data-section="8" data-priority="medium">
+          <div class="wf-block__head">
+            <span class="wf-section-num">8</span>
+            <span class="wf-block__title">FAQ</span>
+            <span class="wf-block__goal">Задача: возражения перед CTA</span>
+          </div>
+          <div class="wf-zone wf-zone--narrow">
+            <span class="wf-box wf-box--h2">H2</span>
+            <span class="wf-box wf-box--accordion">Accordion ×7</span>
+          </div>
+        </section>
+
+        <!-- 9 CONTACT -->
+        <section class="wf-block wf-block--goal" data-section="9" data-priority="critical">
+          <div class="wf-block__head">
+            <span class="wf-section-num">9</span>
+            <span class="wf-block__title">CTA + контакты</span>
+            <span class="wf-block__goal">Задача: конверсия</span>
+          </div>
+          <div class="wf-grid wf-grid--2col">
+            <div class="wf-zone">
+              <span class="wf-box wf-box--h2">H2</span>
+              <span class="wf-box wf-box--desc">Desc</span>
+              <span class="wf-box wf-box--cta wf-box--lg">Phone CTA</span>
+              <span class="wf-box wf-box--sec">Messenger CTA</span>
+            </div>
+            <span class="wf-card wf-card--contact">Contact card · tel · tg · локация</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="wf-zone wf-zone--footer">
+        <span class="wf-label">Footer</span>
+        <div class="wf-inner wf-inner--row">
+          <span class="wf-box wf-box--sm">Logo</span>
+          <span class="wf-box wf-box--text">Meta</span>
+          <span class="wf-box wf-box--sm">Наверх</span>
+        </div>
+      </footer>
+
+      <div class="wf-sticky-bar">
+        <span class="wf-label">Sticky CTA · mobile only · после Hero</span>
+        <span class="wf-box wf-box--cta wf-box--full">Забронировать</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIERARCHY TABLE -->
+  <section class="wf-table-section" aria-labelledby="table-title">
+    <h2 id="table-title">Иерархия контента (typography levels)</h2>
+    <table class="wf-table">
+      <thead>
+        <tr>
+          <th>Уровень</th>
+          <th>Элемент</th>
+          <th>Где</th>
+          <th>Роль в UX</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>L0</td><td>Logo</td><td>Header</td><td>Бренд · якорь</td></tr>
+        <tr><td>L1</td><td>H1</td><td>Hero</td><td>Главное отличие · единственный на странице</td></tr>
+        <tr><td>L2</td><td>H2</td><td>Каждая секция</td><td>Заголовок блока · сканирование</td></tr>
+        <tr><td>L3</td><td>H3</td><td>Карточки</td><td>Сценарий / лодка / пункт включено</td></tr>
+        <tr><td>L4</td><td>Lead / Desc</td><td>Hero + секции</td><td>Контекст под заголовком</td></tr>
+        <tr><td>L5</td><td>Body / Spec / FAQ</td><td>Карточки, списки</td><td>Детали · читают при интересе</td></tr>
+        <tr><td>L6</td><td>Pills / Tags / Stats</td><td>Hero, карточки</td><td>Быстрое сканирование фактов</td></tr>
+        <tr><td>CTA</td><td>Primary</td><td>Hero, каталог, header, sticky, §9</td><td>Одно действие — забронировать</td></tr>
+        <tr><td>CTA</td><td>Secondary</td><td>Hero</td><td>Углубление без давления → §4</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MOBILE -->
+  <section class="wf-mobile" aria-labelledby="mobile-title">
+    <h2 id="mobile-title">Mobile: порядок и поведение</h2>
+    <div class="wf-mobile-cols">
+      <div>
+        <h3>Stack (сверху вниз)</h3>
+        <ol>
+          <li>Header compact · CTA скрыт в nav</li>
+          <li>Hero full viewport · pills wrap</li>
+          <li>Сценарии 1 col → 2 col (tablet)</li>
+          <li>Каталог · лодки вертикально</li>
+          <li>Включено · 2 col grid</li>
+          <li>Аренда · vertical timeline</li>
+          <li>Безопасность · stack</li>
+          <li>Gallery · 2 col</li>
+          <li>FAQ · full width</li>
+          <li>CTA · stack + padding под sticky</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Отличия mobile</h3>
+        <ul>
+          <li>Sticky CTA появляется после скролла Hero</li>
+          <li>Nav → drawer · 5 ссылок + CTA</li>
+          <li>Process: вертикальная линия, не 5 колонок</li>
+          <li>Hero stats: 1 col → 3 col (640px+)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
