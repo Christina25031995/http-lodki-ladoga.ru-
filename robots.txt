@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /booking-widget.html
+
+Sitemap: https://lodki-ladoga.ru/sitemap.xml
